@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VUA TIẾNG VIỆT</title>
+<style>
+:root{--bg:#fff8ec;--card:#fff;--ink:#2b2118;--mut:#7a6a58;--pri:#c2410c;--ok:#15803d;--bad:#b91c1c;--line:#ecd9bd;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1510;--card:#2a2018;--ink:#f6ead8;--mut:#b8a68e;--pri:#fb923c;--ok:#4ade80;--bad:#f87171;--line:#4a3a2a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1c1510;--card:#2a2018;--ink:#f6ead8;--mut:#b8a68e;--pri:#fb923c;--ok:#4ade80;--bad:#f87171;--line:#4a3a2a;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.w{max-width:720px;margin:0 auto;padding:16px}
+h1{font-family:Georgia,"Times New Roman",serif;color:var(--pri);text-align:center;margin:8px 0;font-size:2.2rem;letter-spacing:1px}
+.sub{text-align:center;color:var(--mut);margin:0 0 16px}
+.c{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:18px;margin:12px 0}
+button,select,input,textarea{font:inherit;color:var(--ink)}
+.b{background:var(--pri);color:#fff;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:700;margin:4px 4px 4px 0}
+.b.g{background:transparent;color:var(--pri);border:2px solid var(--pri)}
+.b:disabled{opacity:.5}
+input,textarea,select{background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:10px;width:100%}
+.o{display:block;width:100%;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px;margin:8px 0;cursor:pointer}
+.o.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 22%,var(--bg))}
+.o.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 22%,var(--bg))}
+.top{display:flex;justify-content:space-between;color:var(--mut);font-size:.95rem}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--pri);transition:width 1s linear}
+.chip{display:inline-block;background:var(--pri);color:#fff;border-radius:20px;padding:2px 12px;font-size:.8rem;font-weight:700}
+.q{font-size:1.2rem;font-weight:600;margin:10px 0}
+.words{display:flex;flex-wrap:wrap;gap:6px}.words .o{width:auto;margin:0}
+.fb{margin-top:10px;padding:10px;border-radius:10px;background:var(--bg)}
+.big{font-size:3rem;text-align:center}.ctr{text-align:center}
+table{width:100%;border-collapse:collapse}td{padding:6px;border-bottom:1px solid var(--line)}
+.ed{border-left:6px solid var(--pri)}label{font-size:.85rem;color:var(--mut);display:block;margin-top:8px}
+.hide{display:none}
+</style></head><body><div class="w" id="app"></div>
+<script>
+const M=(c,q,o,a,e)=>({c,t:'mc',q,o,a:String(a),e}),T=(c,q,a,e)=>({c,t:'tf',q,o:[],a:a?'đúng':'sai',e}),F=(c,q,a,e)=>({c,t:'fill',q,o:[],a,e}),W=(c,q,a,e)=>({c,t:'find',q,o:[],a,e});
+const V='Văn bản',L='Tiếng Việt',S='Chính tả';
+let D=[
+M(V,'Tác giả của truyện ngắn “Bầy chim chìa vôi” là ai?',['Đoàn Giỏi','Nguyễn Quang Thiều','Nguyễn Khoa Điềm','Thanh Thảo'],2,'Nguyễn Quang Thiều là tác giả của truyện “Bầy chim chìa vôi”.'),
+M(V,'Hai anh em Mon và Mên trong “Bầy chim chìa vôi” lo lắng nhất điều gì?',['Mất mùa lúa','Bầy chim non trên cồn cát bị nước sông cuốn trôi','Bị lạc đường','Trời nắng gắt'],2,'Đêm nước sông dâng, hai em lo cho bầy chim chìa vôi non trên cồn cát.'),
+M(V,'Văn bản “Đi lấy mật” trích từ tác phẩm nào của Đoàn Giỏi?',['Đất rừng phương Nam','Dế Mèn phiêu lưu ký','Cánh đồng bất tận','Tuổi thơ dữ dội'],1,'“Đi lấy mật” trích từ tiểu thuyết Đất rừng phương Nam.'),
+M(V,'Người kể chuyện trong “Đi lấy mật” xưng “tôi” là người kể ở ngôi thứ mấy?',['Ngôi thứ nhất','Ngôi thứ hai','Ngôi thứ ba','Không có người kể'],1,'Người kể xưng “tôi” là người kể chuyện ngôi thứ nhất.'),
+T(V,'Người kể chuyện ngôi thứ ba thường xưng “tôi” trong truyện.',false,'Ngôi thứ ba không xưng “tôi”; xưng “tôi” là ngôi thứ nhất.'),
+M(V,'Cốt truyện là gì?',['Chuỗi sự kiện chính được sắp xếp theo trình tự nhất định','Lời của người kể chuyện','Tên nhân vật chính','Bài học của truyện'],1,'Cốt truyện là hệ thống sự kiện chính, nối tiếp nhau tạo nên câu chuyện.'),
+T(V,'“Bầy chim chìa vôi” thể hiện tình yêu thiên nhiên, loài vật và tấm lòng nhân hậu của trẻ thơ.',true,'Đúng, đó là vẻ đẹp tâm hồn của Mon và Mên.'),
+M(V,'Mỗi dòng thơ trong thể thơ bốn chữ có bao nhiêu chữ?',['3','4','5','7'],2,'Thơ bốn chữ: mỗi dòng có 4 chữ.'),
+M(V,'Thể thơ năm chữ có đặc điểm gì?',['Mỗi dòng có 5 chữ','Mỗi dòng có 4 chữ','Mỗi dòng có 8 chữ','Không có vần'],1,'Thơ năm chữ: mỗi dòng có 5 chữ.'),
+M(V,'Bài thơ “Gặp lá cơm nếp” là của tác giả nào?',['Thanh Thảo','Hàn Mặc Tử','Đoàn Văn Cừ','Nguyễn Bính'],1,'“Gặp lá cơm nếp” là của Thanh Thảo.'),
+M(V,'Bài thơ “Mùa xuân chín” là của tác giả nào?',['Thanh Thảo','Hàn Mặc Tử','Nguyễn Khoa Điềm','Đoàn Giỏi'],2,'“Mùa xuân chín” là của Hàn Mặc Tử.'),
+M(V,'Bài thơ “Đường về quê mẹ” là của tác giả nào?',['Đoàn Văn Cừ','Thanh Thảo','Hàn Mặc Tử','Nguyễn Quang Thiều'],1,'“Đường về quê mẹ” là của Đoàn Văn Cừ.'),
+M(V,'Nhịp thơ là gì?',['Cách ngắt nhịp khi đọc thơ','Số chữ trong bài thơ','Tên tác giả','Nội dung bài thơ'],1,'Nhịp là cách ngắt, nghỉ khi đọc dòng thơ.'),
+M(V,'Vần trong thơ là gì?',['Sự lặp lại phần vần giống nhau để tạo sự liên kết và âm hưởng','Một dòng thơ','Một khổ thơ','Tên bài thơ'],1,'Vần tạo sự liên kết và tính nhạc cho câu thơ.'),
+M(L,'Từ nào dưới đây là từ ghép?',['long lanh','bàn ghế','xinh xắn','lao xao'],2,'“Bàn ghế” gồm hai tiếng đều có nghĩa nên là từ ghép.'),
+M(L,'Từ nào dưới đây là từ láy?',['học hành','bạn bè','xinh xắn','nhà cửa'],3,'“Xinh xắn” láy âm đầu x – nên là từ láy.'),
+T(L,'“Lao xao” là từ láy.',true,'Đúng, láy âm đầu (và vần).'),
+M(L,'“Xe đạp” là từ ghép loại nào?',['Chính phụ','Đẳng lập','Từ láy','Từ đơn'],1,'“Xe” là tiếng chính, “đạp” bổ sung nghĩa → ghép chính phụ.'),
+M(L,'Từ “sách vở” là từ ghép loại nào?',['Đẳng lập','Chính phụ','Từ láy','Thành ngữ'],1,'Hai tiếng bình đẳng về nghĩa → ghép đẳng lập.'),
+M(L,'Yếu tố Hán Việt “sơn” (trong sơn hà) có nghĩa là gì?',['Nước','Núi','Trời','Đất'],2,'“Sơn” là núi.'),
+M(L,'Yếu tố Hán Việt “thủy” (trong thủy điện) có nghĩa là gì?',['Lửa','Nước','Gió','Cây'],2,'“Thủy” là nước.'),
+M(L,'Yếu tố Hán Việt “quốc” (trong quốc gia) có nghĩa là gì?',['Nước (đất nước)','Dân','Vua','Làng'],1,'“Quốc” là nước, đất nước.'),
+M(L,'Biện pháp tu từ điệp ngữ là gì?',['Lặp lại từ ngữ để nhấn mạnh','So sánh hai sự vật','Nhân hóa sự vật','Nói quá sự thật'],1,'Điệp ngữ là lặp lại từ ngữ nhằm nhấn mạnh, tạo nhịp điệu.'),
+M(L,'“Ông cụ đã đi rồi” (nghĩa là mất) dùng biện pháp nào?',['Nói giảm nói tránh','Nói quá','Hoán dụ','Chơi chữ'],1,'Dùng cách nói tế nhị để tránh đau buồn.'),
+M(L,'“Lòng mẹ bao la như biển Thái Bình” dùng biện pháp tu từ nào?',['So sánh','Nhân hóa','Ẩn dụ','Điệp ngữ'],1,'Có từ so sánh “như”.'),
+M(L,'Thành ngữ “Ăn quả nhớ kẻ trồng cây” nói về điều gì?',['Lòng biết ơn','Sự lười biếng','Tính keo kiệt','Sự nóng vội'],1,'Khuyên con người sống biết ơn.'),
+T(L,'“Nhà cửa” là từ láy.',false,'“Nhà cửa” là từ ghép đẳng lập.'),
+M(L,'Từ nào dưới đây KHÔNG phải từ láy?',['lấp lánh','rì rào','bạn bè','mát mẻ'],3,'“Bạn bè” là từ ghép đẳng lập.'),
+M(L,'Nghĩa của từ là gì?',['Nội dung (sự vật, hoạt động, tính chất…) mà từ biểu thị','Số tiếng của từ','Cách viết của từ','Vần của từ'],1,'Nghĩa của từ là nội dung mà từ biểu thị.'),
+M(L,'Tiếng “bầy” trong “bầy chim” cho biết điều gì?',['Một nhóm, một đàn','Một con','Một cái','Một loại'],1,'“Bầy” chỉ tập hợp nhiều con cùng loại.'),
+F(S,'Điền ch hay tr: ...ăm chỉ','ch','Chăm chỉ.'),
+F(S,'Điền s hay x: ...ôn ...ao (chọn chữ cho tiếng đầu)','x','Xôn xao.'),
+F(S,'Điền d, r hay gi: ...ản dị','gi','Giản dị.'),
+F(S,'Điền l hay n: ...ô ...ức (chọn chữ cho tiếng đầu)','n','Nô nức.'),
+F(S,'Gõ lại từ viết đúng chính tả: nghĩ ngơi hay nghỉ ngơi?','nghỉ ngơi','Nghỉ ngơi (dấu hỏi).'),
+F(S,'Điền ng hay ngh: ...ề nghiệp','ngh','Nghề nghiệp.'),
+F(S,'Điền c, k hay q (qu): ...uê hương','qu','Quê hương.'),
+W(S,'Cánh đồng lúa chính vàng trải dài đến tận chân trời.','chính','Đúng: lúa chín vàng.'),
+W(S,'Mẹ tôi rất xinh đẹp và dản dị.','dản','Đúng: giản dị.'),
+W(S,'Trời mưa to, nước chàn vào sân trường.','chàn','Đúng: nước tràn.'),
+W(S,'Bạn Lan học rất suất sắc.','suất','Đúng: xuất sắc.'),
+W(S,'Chúng em giữ gìn vệ xinh trường lớp.','xinh','Đúng: vệ sinh.'),
+W(S,'Chú bộ đội trông thật oai phong lẩm liệt.','lẩm','Đúng: lẫm liệt.'),
+T(S,'“Nghiêm túc” viết đúng chính tả.',true,'Đúng.'),
+T(S,'“Trăm chỉ” viết đúng chính tả.',false,'Sai, đúng là “chăm chỉ”.'),
+T(S,'“Rực dỡ” viết đúng chính tả.',false,'Sai, đúng là “rực rỡ”.'),
+T(S,'“Giữ gìn” viết đúng chính tả.',true,'Đúng.'),
+M(S,'Dòng nào viết đúng chính tả?',['sáng suốt, xinh xắn','xáng suốt, sinh sắn','sáng xuốt, xinh sắn','sáng suốt, sinh xắn'],1,'Đúng: sáng suốt, xinh xắn.'),
+M(S,'Dòng nào có từ viết SAI chính tả?',['rạng rỡ','dành dụm','chia xẻ','nô nức'],3,'Sai: chia xẻ → chia sẻ.'),
+M(S,'Chọn từ viết đúng:',['trân thành','chân thành','chân thàn','trân thàn'],2,'Đúng: chân thành.'),
+];
+let S0=JSON.stringify(D);
+try{const s=JSON.parse(localStorage.getItem('vtv_q'));if(Array.isArray(s)&&s.length)D=s}catch(e){}
+const save=()=>{try{localStorage.setItem('vtv_q',JSON.stringify(D))}catch(e){}};
+const $=id=>document.getElementById(id),A=$('app');
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).toLowerCase().trim().replace(/[.,!?;:"“”()]/g,'');
+let Q=[],i=0,sc=0,st=0,ok=0,tl=25,tm=null,name='',wrong=[],done=false;
+function home(){clearInterval(tm);let lb=[];try{lb=JSON.parse(localStorage.getItem('vtv_lb'))||[]}catch(e){}
+A.innerHTML=`<h1>👑 VUA TIẾNG VIỆT</h1><p class="sub">Ngữ văn 7 · Kết nối tri thức với cuộc sống · Tập 1</p>
+<div class="c"><label>Tên của bạn</label><input id="nm" placeholder="Nhập tên..." value="${esc(name)}">
+<p style="margin:14px 0 6px">Bộ đề hiện có <b>${D.length}</b> câu (${D.filter(x=>x.c==S).length} câu chính tả với nhiều dạng chơi: điền chữ, tìm lỗi sai, đúng/sai, trắc nghiệm).</p>
+<button class="b" onclick="go(${D.length})">▶ Chơi trọn bộ</button><button class="b g" onclick="go(10)">⚡ Thử thách 10 câu</button><button class="b g" onclick="editor()">✏️ Chỉnh sửa câu hỏi</button></div>
+<div class="c"><b>🏆 Bảng vàng (trên thiết bị này)</b>${lb.length?'<table>'+lb.map((r,k)=>`<tr><td>${k+1}</td><td>${esc(r.n)}</td><td>${r.s} điểm</td><td>${r.k}/${r.t}</td></tr>`).join('')+'</table>':'<p style="color:var(--mut)">Chưa có ai. Hãy là người đầu tiên!</p>'}</div>`}
+function go(n){name=$('nm').value.trim()||'Học sinh';Q=[...D].sort(()=>Math.random()-.5).slice(0,Math.min(n,D.length));i=0;sc=0;st=0;ok=0;wrong=[];show()}
+function show(){clearInterval(tm);if(i>=Q.length)return end();const q=Q[i];tl=25;done=false;
+let body='';
+if(q.t=='mc')body=q.o.map((o,k)=>`<button class="o" onclick="ans(${k+1})">${'ABCD'[k]||k+1}. ${esc(o)}</button>`).join('');
+if(q.t=='tf')body=`<button class="o" onclick="ans('đúng')">✅ Đúng</button><button class="o" onclick="ans('sai')">❌ Sai</button>`;
+if(q.t=='fill')body=`<input id="fi" placeholder="Gõ đáp án..." autocomplete="off" onkeydown="if(event.key=='Enter')ans($('fi').value)"><button class="b" style="margin-top:10px" onclick="ans($('fi').value)">Trả lời</button>`;
+if(q.t=='find')body=`<p style="color:var(--mut);margin:0 0 8px">Chạm vào từ viết sai chính tả:</p><div class="words">${q.q.split(/\s+/).map(w=>`<button class="o" data-w="${esc(w)}" onclick="ans(this.dataset.w)">${esc(w)}</button>`).join('')}</div>`;
+A.innerHTML=`<div class="top"><span>Câu ${i+1}/${Q.length}</span><span>⭐ ${sc} · 🔥 ${st}</span><span id="tt">⏱ ${tl}s</span></div><div class="bar"><i id="br" style="width:100%"></i></div>
+<div class="c"><span class="chip">${esc(q.c)}${q.t=='fill'?' · Điền chữ':q.t=='find'?' · Tìm lỗi sai':q.t=='tf'?' · Đúng/Sai':''}</span>${q.t=='find'?'':`<div class="q">${esc(q.q)}</div>`}${body}<div id="fb"></div></div>`;
+if(q.t=='fill')$('fi').focus();
+tm=setInterval(()=>{tl--;$('tt').textContent='⏱ '+tl+'s';$('br').style.width=tl/25*100+'%';if(tl<=0){clearInterval(tm);ans(null)}},1000)}
+function ans(v){if(done)return;done=true;clearInterval(tm);const q=Q[i];let r=false;
+if(v!==null){if(q.t=='mc'||q.t=='tf')r=norm(v)==norm(q.a);else r=String(q.a).split('|').map(norm).includes(norm(v))}
+if(r){st++;ok++;sc+=100+tl*2+Math.min(st,5)*10}else{st=0;wrong.push(q)}
+document.querySelectorAll('.o').forEach((b,k)=>{b.disabled=true;if(q.t=='mc'){if(k+1==q.a)b.classList.add('ok');else if(v==k+1)b.classList.add('bad')}
+else if(q.t=='tf'){const m=b.textContent.includes('Đúng')?'đúng':'sai';if(m==q.a)b.classList.add('ok');else if(norm(v||'')==m)b.classList.add('bad')}
+else if(q.t=='find'){if(norm(b.dataset.w)==norm(q.a))b.classList.add('ok');else if(v&&norm(b.dataset.w)==norm(v))b.classList.add('bad')}});
+if(q.t=='fill'){$('fi').disabled=true}
+$('fb').innerHTML=`<div class="fb"><b style="color:var(--${r?'ok':'bad'})">${r?'🎉 Chính xác!':(v===null?'⏰ Hết giờ!':'😅 Chưa đúng.')}</b>${r?'':' Đáp án: <b>'+esc(q.t=='mc'?q.o[q.a-1]:q.a)+'</b>.'}<br>${esc(q.e||'')}</div><button class="b" style="margin-top:10px" onclick="i++;show()">${i+1<Q.length?'Câu tiếp theo ➜':'Xem kết quả 🏁'}</button>`}
+function end(){const p=ok/Q.length*100,rk=p>=90?['👑','VUA TIẾNG VIỆT']:p>=75?['🛡️','Hiệp sĩ Ngôn từ']:p>=50?['📚','Học giả Chăm chỉ']:['🌱','Tập sự Tiếng Việt'];
+let lb=[];try{lb=JSON.parse(localStorage.getItem('vtv_lb'))||[];lb.push({n:name,s:sc,k:ok,t:Q.length});lb.sort((a,b)=>b.s-a.s);lb=lb.slice(0,10);localStorage.setItem('vtv_lb',JSON.stringify(lb))}catch(e){}
+A.innerHTML=`<div class="c ctr"><div class="big">${rk[0]}</div><h1 style="font-size:1.7rem">${rk[1]}</h1><p><b>${esc(name)}</b> · ${ok}/${Q.length} câu đúng · <b>${sc}</b> điểm</p><button class="b" onclick="home()">Về trang chủ</button><button class="b g" onclick="go(${Q.length})">Chơi lại</button></div>
+${wrong.length?`<div class="c"><b>Các câu cần ôn lại</b>${wrong.map(q=>`<p><span class="chip">${esc(q.c)}</span> ${esc(q.q)}<br>➜ <b>${esc(q.t=='mc'?q.o[q.a-1]:q.a)}</b> — ${esc(q.e||'')}</p>`).join('')}</div>`:''}`}
+/* ===== Trình chỉnh sửa ===== */
+const TY={mc:'Trắc nghiệm',tf:'Đúng/Sai',fill:'Điền chữ',find:'Tìm lỗi sai'};
+function editor(){A.innerHTML=`<h1 style="font-size:1.6rem">✏️ Chỉnh sửa câu hỏi</h1><div class="c"><button class="b" onclick="home()">⬅ Về trò chơi</button><button class="b g" onclick="add()">➕ Thêm câu</button><button class="b g" onclick="exp()">📤 Xuất JSON</button><button class="b g" onclick="imp()">📥 Nhập JSON</button><button class="b g" onclick="if(confirm('Khôi phục 50 câu gốc?')){D=JSON.parse(S0);save();editor()}">↺ Khôi phục gốc</button>
+<p style="color:var(--mut);font-size:.9rem;margin:8px 0 0">Mọi thay đổi tự động lưu trên trình duyệt này. Muốn chuyển sang máy khác: bấm “Xuất JSON” rồi “Nhập JSON” ở máy kia. Hiện có ${D.length} câu.</p><textarea id="js" class="hide" rows="8" style="margin-top:8px"></textarea><button id="jb" class="b hide" onclick="doImp()">Áp dụng</button></div>
+${D.map((q,k)=>`<div class="c ed"><b>Câu ${k+1}</b> <button class="b g" style="float:right;padding:4px 10px" onclick="del(${k})">🗑 Xóa</button>
+<label>Loại câu</label><select onchange="up(${k},'t',this.value)">${Object.entries(TY).map(([a,b])=>`<option value="${a}" ${q.t==a?'selected':''}>${b}</option>`).join('')}</select>
+<label>Nhóm (Văn bản / Tiếng Việt / Chính tả)</label><input value="${esc(q.c)}" oninput="up(${k},'c',this.value)">
+<label>${q.t=='find'?'Câu có 1 từ sai chính tả':'Câu hỏi'}</label><textarea rows="2" oninput="up(${k},'q',this.value)">${esc(q.q)}</textarea>
+<label>Các lựa chọn (mỗi dòng 1 lựa chọn – chỉ dùng cho Trắc nghiệm)</label><textarea rows="4" oninput="up(${k},'o',this.value.split('\\n').filter(Boolean))">${esc((q.o||[]).join('\n'))}</textarea>
+<label>Đáp án (Trắc nghiệm: số thứ tự 1–4 · Đúng/Sai: đúng hoặc sai · Điền chữ: đáp án, nhiều đáp án cách nhau bằng | · Tìm lỗi: từ viết sai)</label><input value="${esc(q.a)}" oninput="up(${k},'a',this.value)">
+<label>Giải thích (hiện sau khi trả lời)</label><input value="${esc(q.e)}" oninput="up(${k},'e',this.value)"></div>`).join('')}`}
+function up(k,f,v){D[k][f]=v;save()}
+function del(k){if(confirm('Xóa câu '+(k+1)+'?')){D.splice(k,1);save();editor()}}
+function add(){D.push({c:'Văn bản',t:'mc',q:'Câu hỏi mới',o:['Đáp án A','Đáp án B','Đáp án C','Đáp án D'],a:'1',e:''});save();editor();scrollTo(0,document.body.scrollHeight)}
+function exp(){$('js').classList.remove('hide');$('jb').classList.add('hide');$('js').value=JSON.stringify(D);$('js').select()}
+function imp(){$('js').classList.remove('hide');$('jb').classList.remove('hide');$('js').value='';$('js').placeholder='Dán JSON vào đây...'}
+function doImp(){try{const s=JSON.parse($('js').value);if(!Array.isArray(s)||!s.length)throw 0;D=s;save();editor()}catch(e){alert('JSON không hợp lệ.')}}
+home();
+</script></body></html>
